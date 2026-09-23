@@ -1,0 +1,27 @@
+# Type-check, test, and build `dist/plugin.js` — the bundle the editor loads (see
+# `build` in plugin.json). The work is in scm-js/.github so that every plugin repository
+# builds the same way rather than each carrying its own copy of it; the scheduled run
+# type-checks against the newest @scm-js/plugin-api, so a contract that moved shows up
+# here instead of going unnoticed.
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  ci:
+    # `secrets: inherit` passes CI_BUILD_KEY through. main requires a pull request and a
+    # run's own GITHUB_TOKEN cannot bypass that, so the shared workflow pushes the build
+    # commit over SSH with that write deploy key, which the ruleset names as a bypass
+    # actor; only the push step ever reads it.
+    uses: scm-js/.github/.github/workflows/plugin-ci.yml@main
+    secrets: inherit

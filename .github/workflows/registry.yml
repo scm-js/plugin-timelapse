@@ -1,0 +1,18 @@
+# Tell scm-js/registry that this plugin changed, so Browse Plugins picks a release up in
+# about a minute instead of waiting for the registry's hourly rebuild. The work itself is
+# in scm-js/registry/.github/workflows/notify.yml, so it lives in one place rather than
+# copied into every plugin; `secrets: inherit` passes the REGISTRY_PAT organisation secret
+# through, which is what lets one repository start a workflow in another.
+#
+# Nothing depends on this firing: the registry's schedule catches every change anyway.
+name: Notify registry
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+
+jobs:
+  notify:
+    uses: scm-js/registry/.github/workflows/notify.yml@main
+    secrets: inherit
