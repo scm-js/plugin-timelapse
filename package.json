@@ -16,7 +16,7 @@
     "gifenc": "^1.0.3"
   },
   "devDependencies": {
-    "@scm-js/plugin-api": "^1.31.0",
+    "@scm-js/plugin-api": "^1.32.0",
     "esbuild": "^0.28.2",
     "typescript": "~5.9.2",
     "vitest": "^3.2.4"
