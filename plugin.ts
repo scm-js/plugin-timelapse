@@ -794,13 +794,16 @@ class Player {
 
 /* ── Activation ─────────────────────────────────────────── */
 
+/** A menu label: English, which is how the menu knows the item; the editor shows it through `KO`. */
+const msg = (text: string) => text;
+
 export default function activate(api: PluginApi): () => void {
   api.i18n.register({ ko: KO });
   const app = new Timelapse(api);
 
   api.commands.register({ id: "open", title: "Timelapse", run: () => app.togglePanel() });
   api.commands.register({ id: "record", title: "Record or Pause Timelapse", run: () => app.toggleRecording() });
-  api.menu.add("View", { label: app.t("Timelapse…"), icon: "plugin", command: "open" });
+  api.menu.add("View", { label: msg("Timelapse…"), icon: "plugin", command: "open" });
 
   api.events.on("commit", (e) => app.onCommit(e));
   api.events.on("document", (e) => app.onDocument(e));

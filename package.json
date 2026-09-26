@@ -1,6 +1,6 @@
 {
   "name": "scmjs-plugin-timelapse",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Timelapse — a plugin for the scmJS StarCraft map editor.",
   "author": "Jeany",

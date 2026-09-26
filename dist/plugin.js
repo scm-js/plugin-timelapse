@@ -2206,12 +2206,13 @@ var Player = class {
     ].filter((n) => n !== null));
   }
 };
+var msg = (text) => text;
 function activate(api) {
   api.i18n.register({ ko: KO });
   const app = new Timelapse(api);
   api.commands.register({ id: "open", title: "Timelapse", run: () => app.togglePanel() });
   api.commands.register({ id: "record", title: "Record or Pause Timelapse", run: () => app.toggleRecording() });
-  api.menu.add("View", { label: app.t("Timelapse\u2026"), icon: "plugin", command: "open" });
+  api.menu.add("View", { label: msg("Timelapse\u2026"), icon: "plugin", command: "open" });
   api.events.on("commit", (e) => app.onCommit(e));
   api.events.on("document", (e) => app.onDocument(e));
   api.events.on("file", () => app.onFile());

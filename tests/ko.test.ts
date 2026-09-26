@@ -4,7 +4,7 @@ import { KO } from "../ko";
 
 // Every literal the plugin shows through `t("…")`, read from the source the way the editor's own extractor reads it.
 const source = readFileSync(new URL("../plugin.ts", import.meta.url), "utf8");
-const keys = new Set([...source.matchAll(/\bt\("((?:[^"\\]|\\.)*)"/g)].map((m) => JSON.parse(`"${m[1]}"`) as string));
+const keys = new Set([...source.matchAll(/\b(?:t|msg)\("((?:[^"\\]|\\.)*)"/g)].map((m) => JSON.parse(`"${m[1]}"`) as string));
 
 describe("the Korean catalogue", () => {
   it("has every string the plugin shows", () => {

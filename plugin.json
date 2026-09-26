@@ -1,7 +1,7 @@
 {
   "name": "Timelapse",
   "id": "timelapse",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Records the map as you build it, one frame per edit, and plays the recording back as an animation. Export it as a GIF or a WebM video. A map you open again keeps adding to the same recording.",
   "author": "Jeany",
   "homepage": "https://github.com/scm-js/plugin-timelapse",
