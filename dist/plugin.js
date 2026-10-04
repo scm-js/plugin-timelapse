@@ -921,7 +921,7 @@ var Recorder = class _Recorder {
   /** A fresh recording's first frame: the map before anything was recorded. */
   static start(state, clock) {
     const objects = packObjects(state);
-    const recorder = new _Recorder({ tiles: state.tiles, objects, width: state.width, height: state.height, era: state.era }, 1, 0, clock);
+    const recorder = new _Recorder({ tiles: state.tiles.slice(), objects, width: state.width, height: state.height, era: state.era }, 1, 0, clock);
     const frame = {
       t: 0,
       reason: "start",
