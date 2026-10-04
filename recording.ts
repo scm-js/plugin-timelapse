@@ -49,11 +49,14 @@ export interface Frame {
 }
 
 /** The map as the recorder sees it: a live view, read and copied, never kept. */
+/** A tile array that is only read: the open map's own, which the recorder copies before it keeps anything. */
+export type Tiles = ArrayLike<number> & { slice(): Uint16Array; subarray(begin?: number, end?: number): ArrayLike<number> };
+
 export interface MapState {
   width: number;
   height: number;
   era: number;
-  tiles: Uint16Array;
+  tiles: Tiles;
   units: readonly { unitId: number; owner: number; x: number; y: number }[];
   doodads: readonly { doodadId: number; owner: number; x: number; y: number }[];
   sprites: readonly { spriteId: number; flags: number; owner: number; x: number; y: number }[];
@@ -88,7 +91,7 @@ export function sameObjects(a: Objects, b: Objects): boolean {
 }
 
 /** The bounding rectangle of the cells where `a` and `b` differ, or null when they are equal. Same size assumed. */
-export function diffRect(a: Uint16Array, b: Uint16Array, width: number): Rect | null {
+export function diffRect(a: Tiles, b: Tiles, width: number): Rect | null {
   let x0 = Infinity, y0 = Infinity, x1 = -1, y1 = -1;
   const n = Math.min(a.length, b.length);
   for (let i = 0; i < n; i++) {
@@ -102,7 +105,7 @@ export function diffRect(a: Uint16Array, b: Uint16Array, width: number): Rect | 
   return x1 < 0 ? null : { x0, y0, x1: x1 + 1, y1: y1 + 1 };
 }
 
-export function cutRect(tiles: Uint16Array, width: number, rect: Rect): Uint16Array {
+export function cutRect(tiles: Tiles, width: number, rect: Rect): Uint16Array {
   const w = rect.x1 - rect.x0;
   const out = new Uint16Array(w * (rect.y1 - rect.y0));
   for (let y = rect.y0; y < rect.y1; y++) out.set(tiles.subarray(y * width + rect.x0, y * width + rect.x1), (y - rect.y0) * w);
@@ -159,7 +162,7 @@ export class Recorder {
   /** A fresh recording's first frame: the map before anything was recorded. */
   static start(state: MapState, clock: number): { recorder: Recorder; frame: Frame } {
     const objects = packObjects(state);
-    const recorder = new Recorder({ tiles: state.tiles, objects, width: state.width, height: state.height, era: state.era }, 1, 0, clock);
+    const recorder = new Recorder({ tiles: state.tiles.slice(), objects, width: state.width, height: state.height, era: state.era }, 1, 0, clock);
     const frame: Frame = {
       t: 0, reason: "start", label: "", area: null, width: state.width, height: state.height, era: state.era,
       key: state.tiles.slice(), objects,
