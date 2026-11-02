@@ -18,7 +18,7 @@ In scmJS: **Plugins ▸ Browse Plugins…** lists Timelapse; press **Install**. 
 https://github.com/scm-js/plugin-timelapse
 ```
 
-and press **Add**. To pin a version, add a ref: `github:scm-js/plugin-timelapse@v0.1.0`.
+and press **Add**. To pin a version, add a ref: `github:scm-js/plugin-timelapse@v0.1.1`.
 
 ## Use
 
@@ -31,19 +31,19 @@ starts a recording of it, and the status bar shows a cell with the number of fra
 The picker at the top lists the recordings, newest first; the one being recorded is marked
 *(recording)*. Below it:
 
-- **The picture**: the map at the frame you are on. The box shows where that frame's
-  change happened.
-- **First frame, play/pause, last frame, and the slider** for scrubbing. Playback stops at
-  the end; press play again to watch it from the start.
-- **The line under it**: what the frame was (*Paint Dirt (isometric)*, *Undo: Place
-  unit*, *Someone else's edits* on a shared map), and how much editing time had passed.
-- **Frame rate and ticks**: how fast it plays, and whether units, doodads and sprites,
-  locations and the change box are drawn.
-- **Export…**, **Delete…**, and **Record / Pause recording / Resume recording** for the map
-  in front.
+- The picture: the map at the frame you are on. The box shows where that frame's change
+  happened.
+- Buttons for the first frame, play/pause and the last frame, and a slider for scrubbing.
+  Playback stops at the end. Press play again to watch it from the start.
+- A line saying what the frame was (*Paint Dirt (isometric)*, *Undo Place unit*,
+  *Someone else's edits* on a shared map) and how much editing time had passed.
+- The frame rate, and ticks for what is drawn: units, doodads and sprites, locations, and
+  the box around each change.
+- **Export…** and **Delete…**, and **Record** (or **Pause recording** / **Resume
+  recording**) for the map in front.
 
 If the panel is on the last frame while you work, it follows along, so you can watch the
-recording being made. Recordings of maps on other tilesets play too; the plugin loads
+recording being made. Recordings of maps on other tilesets play too. The plugin loads
 that tileset's graphics to draw them.
 
 ### Exporting
@@ -54,8 +54,9 @@ that tileset's graphics to draw them.
 - **Size**: pixels per tile. The default makes the picture about 512 pixels across.
 - **Frames at most**: a long recording is thinned evenly to this many frames, always
   keeping the first and the last. The dialog shows how long the result will be.
-- **Frames per second** and **Hold the end**: the speed, and how long the finished map
-  stays on screen before the animation starts again.
+- **Frames per second**: the speed.
+- **Hold the end (seconds)**: how long the finished map stays on screen before the
+  animation starts again.
 - The same ticks as the panel.
 
 A GIF is built in the page, one frame after another, with a line showing progress and a
